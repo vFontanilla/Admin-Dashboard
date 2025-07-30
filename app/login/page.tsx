@@ -1,7 +1,7 @@
 "use client"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function LoginPage() {
   const { user, login } = useAuth()
@@ -9,10 +9,11 @@ export default function LoginPage() {
   const [name, setName] = useState("")
   const [role, setRole] = useState("Viewer")
 
-  if (user) {
-    router.replace("/dashboard")
-    return null
-  }
+  useEffect(() => {
+    if (user) router.replace("/dashboard")
+  }, [user, router])
+
+  if (user) return null
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
