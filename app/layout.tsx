@@ -5,6 +5,8 @@ import "@/app/globals.css"
 import { ReactNode } from "react"
 import { Sidebar } from "@/components/Sidebar"
 import { Topbar } from "@/components/Topbar"
+import { AuthProvider } from "@/context/AuthContext"
+import { UIProvider } from "@/context/UIContext"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,13 +27,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`flex h-screen overflow-hidden bg-white text-gray-900 ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`flex h-screen overflow-hidden bg-white text-gray-900 dark:bg-gray-800 ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Sidebar />
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <Topbar />
-          <main className="flex-1 overflow-y-auto bg-gray-100 p-6">{children}</main>
-        </div>
+        <AuthProvider>
+          <UIProvider>
+            <Sidebar />
+            <div className="flex flex-col flex-1 overflow-hidden">
+              <Topbar />
+              <main className="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-700 p-6">{children}</main>
+            </div>
+          </UIProvider>
+        </AuthProvider>
       </body>
     </html>
   )

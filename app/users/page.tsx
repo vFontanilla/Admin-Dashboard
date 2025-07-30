@@ -1,5 +1,6 @@
 // app/users/page.tsx
 "use client"
+import AuthGuard from "@/components/AuthGuard"
 
 const users = [
   { id: 1, name: "Alice Johnson", email: "alice@example.com", role: "Admin" },
@@ -9,6 +10,7 @@ const users = [
 
 export default function UsersPage() {
   return (
+    <AuthGuard roles={["Admin", "Editor"]}>
     <div>
       <h2 className="text-xl font-semibold mb-4">Users Management</h2>
       <div className="overflow-x-auto">
@@ -34,5 +36,6 @@ export default function UsersPage() {
         </table>
       </div>
     </div>
+    </AuthGuard>
   )
 }
