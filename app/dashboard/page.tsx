@@ -1,6 +1,7 @@
 // app/dashboard/page.tsx
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import AuthGuard from "@/components/AuthGuard"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend } from "recharts"
 
 const data = [
@@ -22,8 +23,9 @@ const COLORS = ["#2563eb", "#4ade80", "#facc15"]
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <AuthGuard roles={["Admin", "Editor", "Viewer"]}>
+      <div className="space-y-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Users</CardTitle>
@@ -102,5 +104,6 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
+    </AuthGuard>
   )
 }
